@@ -13,6 +13,10 @@ const { Schema, model} = require('mongoose');
         type: String,
         required: true
     },
+    isChecked: {
+        type: Boolean,
+        default: false
+    },
  });
 
  TareaSchema.method('toJSON', function(){

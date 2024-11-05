@@ -126,6 +126,31 @@ const crearToDo = async (req, res = response) => {
         });
     }
 }
+const deleteToDo = async (req, res = response) => {
+
+    const id = req.params.id;
+
+    try {
+        const existeTarea = await Tarea.findByIdAndDelete({ _id: id });
+        if (existeTarea == false) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No existe la tarea'
+            });
+        }
+        res.json({
+            ok: true,
+            msg: 'Tarea eliminada'
+        });
+
+    } catch(error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'error'
+        });
+    }
+}
 
 const getToDos = async (req, res = response) => {
 
@@ -133,6 +158,7 @@ const getToDos = async (req, res = response) => {
 
     res.json({
         ok: true,
+        total: list.length,
         response: list
     })
 }
@@ -150,4 +176,4 @@ const getToDoById = async (req, res = response) => {
 
 
 
-module.exports = { crearUsuario, login, renewToken, crearToDo, getToDos, getToDoById }
+module.exports = { crearUsuario, login, renewToken, crearToDo, deleteToDo, getToDos, getToDoById }
