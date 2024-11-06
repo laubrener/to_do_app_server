@@ -2,7 +2,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar_campos');
-const { crearToDo, getToDos, getToDoById, deleteToDo } = require('../cotrollers/auth');
+const { crearToDo, getToDos, getToDoById, deleteToDo, editToDo } = require('../cotrollers/auth');
 const router = Router();
 
 router.get('/', getToDos);
@@ -16,6 +16,8 @@ router.post('/new', [
 ], crearToDo);
 
 router.delete('/:id', deleteToDo);
+
+router.put('/:id', editToDo);
 
 router.get('/:id', getToDoById);
 

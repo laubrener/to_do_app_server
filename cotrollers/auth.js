@@ -152,6 +152,34 @@ const deleteToDo = async (req, res = response) => {
     }
 }
 
+const editToDo = async (req, res = response) => {
+
+    const id = req.params.id;
+    const body = req.body;
+
+    try {
+        const existeTarea = await Tarea.findByIdAndUpdate(id , body, {useFindAndModify: false});
+
+        if (existeTarea == false) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No existe la tarea'
+            });
+        }
+        res.json({
+            ok: true,
+            msg: 'Tarea editada'
+        });
+
+    } catch(error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'error'
+        });
+    }
+}
+
 const getToDos = async (req, res = response) => {
 
     const list = await Tarea.find();
@@ -176,4 +204,4 @@ const getToDoById = async (req, res = response) => {
 
 
 
-module.exports = { crearUsuario, login, renewToken, crearToDo, deleteToDo, getToDos, getToDoById }
+module.exports = { crearUsuario, login, renewToken, crearToDo, deleteToDo, editToDo, getToDos, getToDoById }

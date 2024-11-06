@@ -5,6 +5,9 @@ const { Schema, model} = require('mongoose');
         type: String,
         required: true
     },
+    detalle: {
+        type: String
+    },
     comienza: {
         type: String,
         required: true
