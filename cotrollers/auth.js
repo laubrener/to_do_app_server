@@ -98,10 +98,10 @@ const renewToken = async (req, res = response) => {
 
 const crearToDo = async (req, res = response) => {
 
-    const { nombre, comienza, termina } = req.body;
+    const { nombre, detalle, comienza, termina } = req.body;
 
     try {
-        const existeTarea = await Tarea.findOne({ nombre, comienza, termina });
+        const existeTarea = await Tarea.findOne({ nombre, detalle, comienza, termina });
         if (existeTarea) {
             return res.status(400).json({
                 ok: false,
@@ -182,7 +182,7 @@ const editToDo = async (req, res = response) => {
 
 const getToDos = async (req, res = response) => {
 
-    const list = await Tarea.find();
+    const list = await Tarea.find().sort({comienza: 1});
 
     res.json({
         ok: true,
